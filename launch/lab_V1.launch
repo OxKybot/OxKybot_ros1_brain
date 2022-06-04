@@ -1,0 +1,19 @@
+<launch>
+
+ <!-- joy node -->
+  <node respawn="true" pkg="joy"
+        type="joy_node" name="command_joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.12" />
+  </node>
+
+     <node respawn="true" pkg="rosserial_arduino"
+        type="serial_node.py" name="ros_arduino" >
+    <param name="~port" type="string" value="/dev/ttyACM0" />
+    <param name="~baud" type="string" value="57600" />
+  </node> 
+
+  <node respawn="true" pkg="robot_control_ros1_v1" type="teleop_joy.py" name="joystick_command" output="screen"/>
+  
+  <node respawn="true" pkg="robot_control_ros1_v1" type="pose_containerPubSub.py" name="pose_container" output="screen"/>
+</launch>
