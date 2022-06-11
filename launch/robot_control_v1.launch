@@ -17,7 +17,7 @@
 
   <include file="$(find hector_mapping)/launch/mapping_default.launch"/> 
 
-  <node respawn="true" pkg="robot_control_ros1_v1" type="teleop_joy.py" name="joystick_command" output="screen"/>
+  <node respawn="true" pkg="OxKybot_ros1_brain" type="teleop_joy.py" name="joystick_command" output="screen"/>
   
-  <node respawn="true" pkg="robot_control_ros1_v1" type="pose_containerPubSub.py" name="pose_container" output="screen"/>
+  <node respawn="true" pkg="OxKybot_ros1_brain" type="pose_containerPubSub.py" name="pose_container" output="screen"/>
 </launch>
