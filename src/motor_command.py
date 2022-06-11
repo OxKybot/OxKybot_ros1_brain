@@ -3,9 +3,10 @@ import rospy
 from SlamPose import SlamPose
 from std_msgs.msg import Int32
 from std_msgs.msg import String
+import constants
 actualPose =SlamPose()
 goalPose=SlamPose()
-positionLambda = 50
+
 
 def update_pose_cb(data):
     global actualPose
@@ -21,7 +22,7 @@ def goto_positionX_cb(data):
 
 def timer_got_positionX_cb():
 
-    if(abs(goalPose.poseX - actualPose.poseX)<positionLambda):
+    if(abs(goalPose.poseX - actualPose.poseX)<constants.POSITION_TRACKING_LAMBDA):
         motorPub.publish("STOP")
         posexTimer.shutdown()
 

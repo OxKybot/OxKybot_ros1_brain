@@ -4,20 +4,19 @@ from std_msgs.msg import String
 from geometry_msgs.msg import PoseStamped
 from SlamPose import SlamPose
 
-hectorPose = PoseStamped()
 actualPose = SlamPose()
 def publishMsg(publisher,msg,log_text):
     rospy.loginfo(log_text)
     publisher.publish(msg)
 
 def update_pose_cb(data):
-    global hectorPose
-    hectorPose=data
     actualPose.fromHectorToOxKybot(data)
     actualPose.publish(actualPose)
 
 def get_pose(data):
-    pose = ""+str(hectorPose.pose.position.x*1000)+","+str(hectorPose.pose.position.y*1000)+","+str(hectorPose.pose.orientation.z*1000)
+    pose = str(actualPose.poseX)
+    pose += ","+str(actualPose.poseY)
+    pose += ","+str(actualPose.angle)
     publishMsg(poseToArduinoPub,pose,"pose requested")
 
 def start():
