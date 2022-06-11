@@ -11,7 +11,6 @@ def publishMsg(publisher,msg,log_text):
 
 def update_pose_cb(data):
     actualPose.fromHectorToOxKybot(data)
-    actualPose.publish(actualPose)
 
 def get_pose(data):
     pose = str(actualPose.poseX)
