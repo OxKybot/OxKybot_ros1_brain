@@ -40,6 +40,8 @@ def callback(data):
         publishMsg(data,motorPub,"motor BUTTON PRESSED")
     elif(motorButtonPressed):
         motorButtonPressed = False
+        data.axes[0]=0
+        data.axes[1]=0
         publishMsg(data,motorPub,"motor BUTTON RELEASED")
 
     if(data.buttons[1]==1):
@@ -47,6 +49,8 @@ def callback(data):
         publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON PRESSED")
     elif(angleButtonPressed):
         angleButtonPressed = False
+        data.axes[0]=0
+        data.axes[1]=0
         publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON RELEASED")
 
     if(data.buttons[2]==1):
