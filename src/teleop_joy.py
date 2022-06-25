@@ -10,23 +10,30 @@ def publishMsg(twist,publish,name):
     publish.publish(twist)
 
 motorButtonPressed=False
+motorSlowButtonPressed=False
 armLButtonPressed=False
 armRButtonPressed=False
 angleButtonPressed=False
 resetangleButtonPressed=False
 def callback(data):
     global motorButtonPressed
+    global motorSlowButtonPressed
     global armLButtonPressed
     global armRButtonPressed
     global angleButtonPressed
     global resetangleButtonPressed
 
     capture.joy_command(data)
-
-    if(data.buttons[3]==1):
-       rospy.loginfo('button3333333333 PRESSSSSSSSSSEEEEEEEDDDD')
+    
     if(data.buttons[4]==1):
        rospy.loginfo('button4444444444 PRESSSSSSSSSSEEEEEEEDDDD')
+    
+    if(data.buttons[3]==1):
+        motorSlowButtonPressed = True
+        publishMsg(data,motorSlowPub,"motor BUTTON PRESSED")
+    elif(motorSlowButtonPressed):
+        motorSlowButtonPressed = False
+        publishMsg(data,motorSlowPub,"motor BUTTON RELEASED")
 
     if(data.buttons[0]==1):
         motorButtonPressed = True
@@ -77,6 +84,8 @@ def start():
     
     global motorPub
     motorPub = rospy.Publisher('JoyCommandMotor', Joy, queue_size=10)
+    global motorSlowPub
+    motorSlowPub = rospy.Publisher('JoyCommandMotorSlow', Joy, queue_size=10)
     global armLeftPub
     armLeftPub = rospy.Publisher('JoyCommandArmLeft', Joy, queue_size=10)
     global armRightPub
