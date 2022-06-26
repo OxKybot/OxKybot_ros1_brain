@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import rospy
+import copy
 from video_capture import Capture
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Joy
@@ -34,7 +35,7 @@ def callback(data):
         publishMsg(data,motorSlowPub,"motor BUTTON PRESSED")
     elif(motorSlowButtonPressed):
         motorSlowButtonPressed = False
-        emptyJoyCommand=data
+        emptyJoyCommand=copy.deepcopy(data)
         emptyJoyCommand.axes[0]=0
         emptyJoyCommand.axes[1]=0
         publishMsg(emptyJoyCommand,motorSlowPub,"motor BUTTON RELEASED")
@@ -44,7 +45,7 @@ def callback(data):
         publishMsg(data,motorPub,"motor BUTTON PRESSED")
     elif(motorButtonPressed):
         motorButtonPressed = False
-        emptyJoyCommand=data
+        emptyJoyCommand=copy.deepcopy(data)
         emptyJoyCommand.axes[0]=0
         emptyJoyCommand.axes[1]=0
         publishMsg(emptyJoyCommand,motorPub,"motor BUTTON RELEASED")
