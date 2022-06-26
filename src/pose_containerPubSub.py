@@ -14,7 +14,7 @@ def update_pose_cb(data):
     actualPose = data
 
 def get_pose(data):
-    rospy.loginfo(actualPose)
+    rospy.loginfo(actualPose.pose)
     publishMsg(poseToArduinoPub,actualPose,"pose requested")
 
 def start():
