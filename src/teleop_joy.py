@@ -15,6 +15,7 @@ armLButtonPressed=False
 armRButtonPressed=False
 angleButtonPressed=False
 resetangleButtonPressed=False
+emptyJoyCommand = Joy()
 def callback(data):
     global motorButtonPressed
     global motorSlowButtonPressed
