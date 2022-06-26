@@ -16,8 +16,6 @@ armRButtonPressed=False
 angleButtonPressed=False
 resetangleButtonPressed=False
 emptyJoyCommand = Joy()
-emptyJoyCommand.axes[0]=0
-emptyJoyCommand.axes[1]=0
 def callback(data):
     global motorButtonPressed
     global motorSlowButtonPressed
@@ -36,13 +34,19 @@ def callback(data):
         publishMsg(data,motorSlowPub,"motor BUTTON PRESSED")
     elif(motorSlowButtonPressed):
         motorSlowButtonPressed = False
-        publishMsg(data,motorSlowPub,"motor BUTTON RELEASED")
+        emptyJoyCommand=data
+        emptyJoyCommand.axes[0]=0
+        emptyJoyCommand.axes[1]=0
+        publishMsg(emptyJoyCommand,motorSlowPub,"motor BUTTON RELEASED")
 
     if(data.buttons[0]==1):
         motorButtonPressed = True
         publishMsg(data,motorPub,"motor BUTTON PRESSED")
     elif(motorButtonPressed):
         motorButtonPressed = False
+        emptyJoyCommand=data
+        emptyJoyCommand.axes[0]=0
+        emptyJoyCommand.axes[1]=0
         publishMsg(emptyJoyCommand,motorPub,"motor BUTTON RELEASED")
 
     if(data.buttons[1]==1):
@@ -50,7 +54,7 @@ def callback(data):
         publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON PRESSED")
     elif(angleButtonPressed):
         angleButtonPressed = False
-        publishMsg(emptyJoyCommand,gotoAngleJoyPub,"go to angle BUTTON RELEASED")
+        publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON RELEASED")
 
     if(data.buttons[2]==1):
         resetangleButtonPressed = True
