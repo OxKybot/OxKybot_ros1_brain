@@ -30,10 +30,10 @@ def callback(data):
     
     if(data.buttons[3]==1):
         motorSlowButtonPressed = True
-        publishMsg(data,motorSlowPub,"motor BUTTON PRESSED")
+        publishMsg(data,motorSlowPub,"motor SLOW BUTTON PRESSED")
     elif(motorSlowButtonPressed):
         motorSlowButtonPressed = False
-        publishMsg(data,motorSlowPub,"motor BUTTON RELEASED")
+        publishMsg(data,motorSlowPub,"motor SLOW BUTTON RELEASED")
 
     if(data.buttons[0]==1):
         motorButtonPressed = True
