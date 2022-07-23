@@ -28,40 +28,40 @@ def callback(data):
     if(data.buttons[4]==1):
        rospy.loginfo('button4444444444 PRESSSSSSSSSSEEEEEEEDDDD')
     
-    if(data.buttons[3]==1 And !motorSlowButtonPressed):
+    if(data.buttons[3]==1 and !motorSlowButtonPressed):
         motorSlowButtonPressed = True
         publishMsg(data,motorSlowPub,"motor BUTTON PRESSED")
     elif(motorSlowButtonPressed):
         motorSlowButtonPressed = False
         publishMsg(data,motorSlowPub,"motor BUTTON RELEASED")
 
-    if(data.buttons[0]==1 And !motorButtonPressed):
+    if(data.buttons[0]==1 and !motorButtonPressed):
         motorButtonPressed = True
         publishMsg(data,motorPub,"motor BUTTON PRESSED")
     elif(motorButtonPressed):
         motorButtonPressed = False
         publishMsg(data,motorPub,"motor BUTTON RELEASED")
 
-    if(data.buttons[1]==1 And !gotoAngleJoyPub):
+    if(data.buttons[1]==1 and !gotoAngleJoyPub):
         angleButtonPressed = True
         publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON PRESSED")
     elif(angleButtonPressed):
         angleButtonPressed = False
         publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON RELEASED")
 
-    if(data.buttons[2]==1 And !resetangleButtonPressed):
+    if(data.buttons[2]==1 and !resetangleButtonPressed):
         resetangleButtonPressed = True
     elif(resetangleButtonPressed):
         resetangleButtonPressed = False
         publishMsg("reset angle",resetAnglePub,"reset angle BUTTON RELEASED")
 
-    if(data.buttons[6]==1 And !armLButtonPressed):
+    if(data.buttons[6]==1 and !armLButtonPressed):
         armLButtonPressed = True
         publishMsg(data,armLeftPub,"armLeftPub BUTTON PRESSED")
     elif(armLButtonPressed):
         armLButtonPressed = False
         publishMsg(data,armLeftPub,"armLeftPub")
-    if(data.buttons[7]==1 And !armRButtonPressed):
+    if(data.buttons[7]==1 and !armRButtonPressed):
         armRButtonPressed = True
         publishMsg(data,armRightPub,"armRightPub BUTTON PRESSED")
     elif(armRButtonPressed):
