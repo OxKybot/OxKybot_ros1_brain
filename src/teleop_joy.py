@@ -38,33 +38,33 @@ def callback(data):
     if(data.buttons[0]==1 and not motorButtonPressed):
         motorButtonPressed = True
         publishMsg(data,motorPub,"motor BUTTON PRESSED")
-    elif(data.buttons[0]==0 and motorButtonPressed):
+    if(data.buttons[0]==0 and motorButtonPressed):
         motorButtonPressed = False
         publishMsg(data,motorPub,"motor BUTTON RELEASED")
 
     if(data.buttons[1]==1 and not gotoAngleJoyPub):
         angleButtonPressed = True
         publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON PRESSED")
-    elif(data.buttons[1]==0 and angleButtonPressed):
+    if(data.buttons[1]==0 and angleButtonPressed):
         angleButtonPressed = False
         publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON RELEASED")
 
     if(data.buttons[2]==1 and not resetangleButtonPressed):
         resetangleButtonPressed = True
-    elif(data.buttons[2]==0 and resetangleButtonPressed):
+    if(data.buttons[2]==0 and resetangleButtonPressed):
         resetangleButtonPressed = False
         publishMsg("reset angle",resetAnglePub,"reset angle BUTTON RELEASED")
 
     if(data.buttons[6]==1 and not armLButtonPressed):
         armLButtonPressed = True
         publishMsg(data,armLeftPub,"armLeftPub BUTTON PRESSED")
-    elif(armLButtonPressed):
+    if(armLButtonPressed):
         armLButtonPressed = False
         publishMsg(data,armLeftPub,"armLeftPub")
     if(data.buttons[7]==1 and not armRButtonPressed):
         armRButtonPressed = True
         publishMsg(data,armRightPub,"armRightPub BUTTON PRESSED")
-    elif(data.buttons[7]==0 and armRButtonPressed):
+    if(data.buttons[7]==0 and armRButtonPressed):
         armRButtonPressed = False
         publishMsg(data,armRightPub,"armRightPub BUTTON RELEASED")
 def logInput(data):
