@@ -28,43 +28,43 @@ def callback(data):
     if(data.buttons[4]==1):
        rospy.loginfo('button4444444444 PRESSSSSSSSSSEEEEEEEDDDD')
     
-    if(data.buttons[3]==1 and not motorSlowButtonPressed):
+    if(data.buttons[3]==1):
         motorSlowButtonPressed = True
         publishMsg(data,motorSlowPub,"motor BUTTON PRESSED")
-    if(data.buttons[3]==0 and motorSlowButtonPressed):
+    elif(motorSlowButtonPressed):
         motorSlowButtonPressed = False
         publishMsg(data,motorSlowPub,"motor BUTTON RELEASED")
 
-    if(data.buttons[0]==1 and not motorButtonPressed):
+    if(data.buttons[0]==1):
         motorButtonPressed = True
         publishMsg(data,motorPub,"motor BUTTON PRESSED")
-    if(data.buttons[0]==0 and motorButtonPressed):
+    elif( motorButtonPressed):
         motorButtonPressed = False
         publishMsg(data,motorPub,"motor BUTTON RELEASED")
 
-    if(data.buttons[1]==1 and not gotoAngleJoyPub):
+    if(data.buttons[1]==1):
         angleButtonPressed = True
         publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON PRESSED")
-    if(data.buttons[1]==0 and angleButtonPressed):
+    elif(angleButtonPressed):
         angleButtonPressed = False
         publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON RELEASED")
 
-    if(data.buttons[2]==1 and not resetangleButtonPressed):
+    if(data.buttons[2]==1):
         resetangleButtonPressed = True
-    if(data.buttons[2]==0 and resetangleButtonPressed):
+    elif(resetangleButtonPressed):
         resetangleButtonPressed = False
         publishMsg("reset angle",resetAnglePub,"reset angle BUTTON RELEASED")
 
-    if(data.buttons[6]==1 and not armLButtonPressed):
+    if(data.buttons[6]==1):
         armLButtonPressed = True
         publishMsg(data,armLeftPub,"armLeftPub BUTTON PRESSED")
-    if(armLButtonPressed):
+    elif(armLButtonPressed):
         armLButtonPressed = False
         publishMsg(data,armLeftPub,"armLeftPub")
-    if(data.buttons[7]==1 and not armRButtonPressed):
+    if(data.buttons[7]==1):
         armRButtonPressed = True
         publishMsg(data,armRightPub,"armRightPub BUTTON PRESSED")
-    if(data.buttons[7]==0 and armRButtonPressed):
+    elif(armRButtonPressed):
         armRButtonPressed = False
         publishMsg(data,armRightPub,"armRightPub BUTTON RELEASED")
 def logInput(data):
