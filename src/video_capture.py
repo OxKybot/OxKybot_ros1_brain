@@ -65,21 +65,21 @@ class Capture:
         self.is_recording = False
 
     def joy_command(self,data):
-        if(data.buttons[5]==1 and not self.isCaptureInitDone and not self.captureButtonPressed):
+        if(data.buttons[9]==1 and not self.isCaptureInitDone and not self.captureButtonPressed):
             self.captureButtonPressed=True
-        if(data.buttons[5]==1 and not self.isCaptureInitDone and self.captureButtonPressed):
+        if(data.buttons[9]==1 and not self.isCaptureInitDone and self.captureButtonPressed):
             self.init_cap()
             self.isCaptureInitDone=True
             self.captureButtonPressed=False
-        if(data.buttons[5]==1 and not self.capturing and not self.captureButtonPressed and self.isCaptureInitDone):
+        if(data.buttons[9]==1 and not self.capturing and not self.captureButtonPressed and self.isCaptureInitDone):
             self.captureButtonPressed=True
-        if(data.buttons[5]==0 and not self.capturing and self.captureButtonPressed and self.isCaptureInitDone):
+        if(data.buttons[9]==0 and not self.capturing and self.captureButtonPressed and self.isCaptureInitDone):
             self.capturing=True
             self.start()
             self.captureButtonPressed=False
-        if(data.buttons[5]==1 and self.capturing and not self.captureButtonPressed and self.isCaptureInitDone):
+        if(data.buttons[9]==1 and self.capturing and not self.captureButtonPressed and self.isCaptureInitDone):
             self.captureButtonPressed=True
-        if(data.buttons[5]==0 and self.capturing and self.captureButtonPressed and self.isCaptureInitDone):
+        if(data.buttons[9]==0 and self.capturing and self.captureButtonPressed and self.isCaptureInitDone):
             self.capturing=True
             self.stop_cap()
             self.captureButtonPressed=False
