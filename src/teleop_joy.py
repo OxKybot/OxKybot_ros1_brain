@@ -9,59 +9,24 @@ def publishMsg(twist,publish,name):
     rospy.loginfo(name)
     publish.publish(twist)
 
-motorButtonPressed=False
-motorSlowButtonPressed=False
 armLButtonPressed=False
 armRButtonPressed=False
-angleButtonPressed=False
 resetangleButtonPressed=False
+
 def callback(data):
-    global motorButtonPressed
-    global motorSlowButtonPressed
     global armLButtonPressed
     global armRButtonPressed
-    global angleButtonPressed
     global resetangleButtonPressed
 
     capture.joy_command(data)
-    
+
     if(data.buttons[4]==1):
-       rospy.loginfo('button4444444444 PRESSSSSSSSSSEEEEEEEDDDD')
-    
-    if(data.buttons[3]==1):
-        motorSlowButtonPressed = True
-        publishMsg(data,motorSlowPub,"motor SLOW BUTTON PRESSED")
-    elif(motorSlowButtonPressed):
-        motorSlowButtonPressed = False
-        publishMsg(data,motorSlowPub,"motor SLOW BUTTON RELEASED")
-
-    if(data.buttons[0]==1):
-        motorButtonPressed = True
-        publishMsg(data,motorPub,"motor BUTTON PRESSED")
-    elif( motorButtonPressed):
-        motorButtonPressed = False
-        publishMsg(data,motorPub,"motor BUTTON RELEASED")
-
-    if(data.buttons[1]==1):
-        angleButtonPressed = True
-        publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON PRESSED")
-    elif(angleButtonPressed):
-        angleButtonPressed = False
-        publishMsg(data,gotoAngleJoyPub,"go to angle BUTTON RELEASED")
-
-    if(data.buttons[2]==1):
-        resetangleButtonPressed = True
-    elif(resetangleButtonPressed):
-        resetangleButtonPressed = False
-        publishMsg("reset angle",resetAnglePub,"reset angle BUTTON RELEASED")
-
-    if(data.buttons[6]==1):
         armLButtonPressed = True
         publishMsg(data,armLeftPub,"armLeftPub BUTTON PRESSED")
     elif(armLButtonPressed):
         armLButtonPressed = False
         publishMsg(data,armLeftPub,"armLeftPub")
-    if(data.buttons[7]==1):
+    if(data.buttons[5]==1):
         armRButtonPressed = True
         publishMsg(data,armRightPub,"armRightPub BUTTON PRESSED")
     elif(armRButtonPressed):
