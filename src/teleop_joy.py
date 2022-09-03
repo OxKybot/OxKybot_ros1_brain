@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import rospy
+import copy
 from video_capture import Capture
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Joy
@@ -8,18 +9,26 @@ from std_msgs.msg import String
 def publishMsg(twist,publish,name):
     rospy.loginfo(name)
     publish.publish(twist)
-
+isDataToSend=False
 armLButtonPressed=False
 armRButtonPressed=False
 resetangleButtonPressed=False
+lastJoyCommand = Joy()
 
+def send_joy_command():
+    if(isDataToSend):
+        publishMsg(lastJoyCommand,motorPub,"motor message sended")
+        isDataToSend=False
+    
 def callback(data):
     global armLButtonPressed
     global armRButtonPressed
     global resetangleButtonPressed
-
+    global lastJoyCommand
+    global isDataToSend
+    
     capture.joy_command(data)
-
+    
     if(data.buttons[4]==1):
         armLButtonPressed = True
         publishMsg(data,armLeftPub,"armLeftPub BUTTON PRESSED")
@@ -32,6 +41,10 @@ def callback(data):
     elif(armRButtonPressed):
         armRButtonPressed = False
         publishMsg(data,armRightPub,"armRightPub BUTTON RELEASED")
+    if(not armRButtonPressed and not armLButtonPressed):
+        lastJoyCommand=copy.deepcopy(data)
+        isDataToSend = True
+    
 def logInput(data):
     rospy.loginfo("ARDUINO : %s", data.data)
     
@@ -49,8 +62,6 @@ def start():
     
     global motorPub
     motorPub = rospy.Publisher('JoyCommandMotor', Joy, queue_size=10)
-    global motorSlowPub
-    motorSlowPub = rospy.Publisher('JoyCommandMotorSlow', Joy, queue_size=10)
     global armLeftPub
     armLeftPub = rospy.Publisher('JoyCommandArmLeft', Joy, queue_size=10)
     global armRightPub
@@ -63,6 +74,8 @@ def start():
     gotoAngleJoyPub = rospy.Publisher('JoyGotoAngleCommand', Joy, queue_size=10)
     global capture
     capture = Capture()
+    global joyTimer
+    joyTimer = rospy.Timer(rospy.Duration(0.05), send_joy_command)
     rospy.init_node('joystickCommand', anonymous=True)
     rospy.spin()
 
