@@ -75,8 +75,8 @@ def start():
     global capture
     capture = Capture()
     global joyTimer
-    joyTimer = rospy.Timer(rospy.Duration(0.05), send_joy_command)
     rospy.init_node('joystickCommand', anonymous=True)
+    joyTimer = rospy.Timer(rospy.Duration(0.05), send_joy_command)    
     rospy.spin()
 
 if __name__ == '__main__':
