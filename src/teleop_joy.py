@@ -16,6 +16,7 @@ resetangleButtonPressed=False
 lastJoyCommand = Joy()
 
 def send_joy_command(data):
+    global isDataToSend
     if(isDataToSend):
         publishMsg(lastJoyCommand,motorPub,"motor message sended")
         isDataToSend=False
